@@ -43,15 +43,6 @@ res.status(500).json({ erro: 'Erro ao buscar usuário', detalhe: error.message }
 }
 };
 
-const postarFoto = async (req, res) => {
-  const { titulo, caminho_imagem, idUsuario } = req.body;
-  try {
-    const foto = await usuarioModel.postarFoto(titulo, caminho_imagem, idUsuario);
-    res.status(201).json(foto);
-  } catch (error) {
-    res.status(500).json({ erro: 'Erro ao postar foto', detalhe: error.message });
-  }
-};
 
 const adicionarEvento = async (req, res) => {
   const { nome, dataInicio, dataFinal, descricao, endereco, idUsuario } = req.body;
@@ -63,15 +54,6 @@ const adicionarEvento = async (req, res) => {
   }
 };
 
-const postarBlog = async (req, res) => {
-  const { titulo, conteudo, dataHoraPublicacao, idUsuario } = req.body;
-  try {
-    const post = await usuarioModel.postarBlog(titulo, conteudo, dataHoraPublicacao, idUsuario);
-    res.status(201).json(post);
-  } catch (error) {
-    res.status(500).json({ erro: 'Erro ao postar no blog', detalhe: error.message });
-  }
-};
 
 const selecionarTodosUsuarios = async (req, res) => {
     try{
@@ -91,24 +73,14 @@ const selecionarTodosEventos = async (req, res) => {
     }
 }
 
-const selecionarTodosBlogs = async (req, res) => {
-    try{
-        const blog = await usuarioModel.selecionarTodosBlogs();
-        res.json(blog);
-    }catch (error){
-        res.status(500).json({erro: 'Erro ao buscar posts.', detalhe: error.message})
-    }
-}
+
 
 module.exports = {
   registrarUsuario,
   loginUsuario,
   getUsuarioPorId,
-  postarBlog,
-  postarFoto,
   adicionarEvento,
   selecionarTodosUsuarios,
   selecionarTodosEventos,
-  selecionarTodosBlogs
 };
 
