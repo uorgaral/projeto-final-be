@@ -17,18 +17,24 @@ idUsuario int,
 FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE
 )
 
-
 create table post(
-idPost
-idUsuario
-dataPublic
-conteudo 
-confere_imagem
-)
+idPost serial primary key,
+idUsuario int,
+dataPublic TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, -- Esta é a linha principal,
+conteudo text,
+confere_imagem BOOLEAN DEFAULT FALSE,
+FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE
+);
+
+create table imagem (
+idImagem serial primary key,
+idPost int NOT NULL,
+caminho_imagem text,
+FOREIGN KEY (idPost) REFERENCES post(idPost) ON DELETE CASCADE
+);
 
 
-
-
+drop table imagem 
 
 
 
