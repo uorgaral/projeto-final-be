@@ -5,11 +5,7 @@ const multer = require('multer');
 
 router.post('/registrar', usuariosController.registrarUsuario);
 router.post('/login', usuariosController.loginUsuario);
-router.post('/calendario/adicionarEvento', usuariosController.adicionarEvento);
 router.get('/selecionarTodosUsuarios', usuariosController.selecionarTodosUsuarios);
-router.get('/selecionarTodosEventos', usuariosController.selecionarTodosEventos);
-router.get('/selecionarTodosPost', usuariosController.selecionarTodosPost);
-router.get('/selecionarTodosImagem', usuariosController.selecionarTodosImagem);
 router.post('/adicionarPost', usuariosController.upload.array('imagem', 5), usuariosController.adicionarPost)
 
 

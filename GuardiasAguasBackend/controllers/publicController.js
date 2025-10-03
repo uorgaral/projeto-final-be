@@ -1,19 +1,26 @@
-const publicModel = require('../models/usuariosModel');
+const publicModel = require('../models/publicModel');
+
 
 // Informações abertas ao público
-const paginaInicial = ('/', (req, res) => res.send('Página inicial'));
-const sobre = ('/sobreOProjeto', (req, res) => res.send('Sobre o Projeto'));
-const oQueE= ('/saneamentoBasico', (req, res) => res.send('Conteúdo sobre saneamento'));
-const galeria = ('/galeria', (req, res) => res.send('Fotos públicas'));
-const blog = ('/blog', (req, res) => res.send('Postagens públicas'));
-const calendario = ('/calendario', (req, res) => res.send('Calendário público'));
+const selecionarTodosImagem = async (req, res) => {
+    try{
+        const imagens = await publicModel.selecionarTodosImagem();
+        res.json(imagens);
+    }catch (error){
+        res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
+    }
+};
+const selecionarTodosPost = async (req, res) => {
+    try{
+        const post = await publicModel.selecionarTodosPost();
+        res.json(post);
+    }catch (error){
+        res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
+    }
+};
 
 
 module.exports = {
-    paginaInicial,
-    sobre,
-    oQueE,
-    galeria,
-    blog,
-    calendario
+    selecionarTodosImagem,
+    selecionarTodosPost
 };

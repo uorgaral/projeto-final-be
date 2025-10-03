@@ -35,13 +35,6 @@ const { rows } = await conexao.query(query, [email]);
 return rows[0];
 };
 
-const adicionarEvento = async (nome, dataInicio, dataFinal, descricao, endereco, idUsuario) => {
-const query = 'INSERT INTO eventos(nome, dataInicio, dataFinal, descricao, endereco, idUsuario) VALUES ($1, $2, $3, $4, $5, $6) RETURNING nome, dataInicio, dataFinal, descricao, endereco, idUsuario';
-const valores = [nome, dataInicio, dataFinal, descricao, endereco, idUsuario];
-const { rows } = await conexao.query(query, valores);
-return rows[0];
-};
-
 const adicionarPost = async (idUsuario, titulo, conteudo, confere_imagem) => {
     const query = 'INSERT INTO post(idUsuario, titulo, conteudo, confere_imagem) VALUES ($1, $2, $3, $4) RETURNING *';
     const valores = [idUsuario, titulo, conteudo, confere_imagem];
@@ -53,21 +46,7 @@ const adicionarPost = async (idUsuario, titulo, conteudo, confere_imagem) => {
     }
 };
 
-const selecionarTodosEventos = async () => {
-    const query = 'SELECT * FROM evento';
-    const { rows } = await conexao.query(query);
-    return rows;
-}
-const selecionarTodosPost = async () => {
-    const query = 'SELECT * FROM post';
-    const { rows } = await conexao.query(query);
-    return rows;
-}
-const selecionarTodosImagem = async () => {
-    const query = 'SELECT * FROM imagem';
-    const { rows } = await conexao.query(query);
-    return rows;
-}
+
 
 module.exports = {
 registrarUsuario,
@@ -75,12 +54,8 @@ buscarUsuarioPorId,
 buscarUsuarioPorEmail,
 gerarSenhaHash,
 compararSenhas,
-adicionarEvento,
 adicionarPost,
 selecionarTodosUsuarios,
-selecionarTodosEventos,
-selecionarTodosPost,
-selecionarTodosImagem
 };
 
 

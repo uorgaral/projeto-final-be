@@ -65,45 +65,6 @@ const selecionarTodosUsuarios = async (req, res) => {
     }
 };
 
-const adicionarEvento = async (req, res) => {
-  const { nome, dataInicio, dataFinal, descricao, endereco, idUsuario } = req.body;
-  try {
-    const evento = await usuarioModel.adicionarEvento(nome, dataInicio, dataFinal, descricao, endereco, idUsuario);
-    res.status(201).json(evento);
-  } catch (error) {
-    res.status(500).json({ erro: 'Erro ao adicionar evento', detalhe: error.message });
-  }
-};
-
-
-const selecionarTodosEventos = async (req, res) => {
-    try{
-        const eventos = await usuarioModel.selecionarTodosEventos();
-        res.json(eventos);
-    }catch (error){
-        res.status(500).json({erro: 'Erro ao buscar eventos.', detalhe: error.message})
-    }
-};
-
-const selecionarTodosImagem = async (req, res) => {
-    try{
-        // Fix: Call the correct function from the model
-        const imagens = await usuarioModel.selecionarTodosImagem();
-        res.json(imagens);
-    }catch (error){
-        // Change the error message to reflect the correct error
-        res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
-    }
-};
-const selecionarTodosPost = async (req, res) => {
-    try{
-        const post = await usuarioModel.selecionarTodosPost();
-        res.json(post);
-    }catch (error){
-        res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
-    }
-};
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -153,11 +114,7 @@ module.exports = {
   registrarUsuario,
   loginUsuario,
   getUsuarioPorId,
-  adicionarEvento,
   selecionarTodosUsuarios,
-  selecionarTodosEventos,
-  selecionarTodosImagem,
-  selecionarTodosPost,
   adicionarPost,
   upload
 };
