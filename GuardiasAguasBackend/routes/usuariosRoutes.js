@@ -11,7 +11,7 @@ router.get('/selecionarTodosUsuarios', usuariosController.selecionarTodosUsuario
 router.get('/selecionarTodosEventos', usuariosController.selecionarTodosEventos);
 router.get('/selecionarTodosPost', usuariosController.selecionarTodosPost);
 router.get('/selecionarTodosImagem', usuariosController.selecionarTodosImagem);
-router.post('/adicionarPost', usuariosController.upload.array('imagem', 10), usuariosController.adicionarPost)
+router.post('/adicionarPost', usuariosController.upload.array('imagem', 5), usuariosController.adicionarPost)
 
 
 module.exports = router;

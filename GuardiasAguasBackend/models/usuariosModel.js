@@ -44,8 +44,8 @@ return rows[0];
 };
 
 const adicionarPost = async (idUsuario, conteudo, confere_imagem) => {
-    const query = 'INSERT INTO post(idUsuario, conteudo, confere_imagem) VALUES ($1, $2, $3) RETURNING *';
-    const valores = [idUsuario, conteudo, confere_imagem];
+    const query = 'INSERT INTO post(idUsuario, titulo, conteudo, confere_imagem) VALUES ($1, $2, $3, $4) RETURNING *';
+    const valores = [idUsuario, titulo, conteudo, confere_imagem];
     try {
         const { rows } = await conexao.query(query, valores);
         return rows[0];
@@ -80,8 +80,8 @@ adicionarEvento,
 adicionarPost,
 selecionarTodosUsuarios,
 selecionarTodosEventos,
-selecionarTodosImagem,
-selecionarTodosPost
+selecionarTodosPost,
+selecionarTodosImagem
 };
 
 

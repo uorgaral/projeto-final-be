@@ -87,9 +87,11 @@ const selecionarTodosEventos = async (req, res) => {
 
 const selecionarTodosImagem = async (req, res) => {
     try{
-        const imagem = await usuarioModel.selecionarTodosImagem();
-        res.json(imagem);
+        // Fix: Call the correct function from the model
+        const imagens = await usuarioModel.selecionarTodosImagem();
+        res.json(imagens);
     }catch (error){
+        // Change the error message to reflect the correct error
         res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
     }
 };
@@ -168,4 +170,3 @@ module.exports = {
   adicionarPost,
   upload
 };
-
