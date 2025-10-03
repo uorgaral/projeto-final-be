@@ -9,7 +9,6 @@ return rows[0];
 };
 
 const gerarSenhaHash = async (senha) => {
-console.log(bcrypt.hash(senha, 10));
 return bcrypt.hash(senha, 10);
 };
 
@@ -43,7 +42,7 @@ const { rows } = await conexao.query(query, valores);
 return rows[0];
 };
 
-const adicionarPost = async (idUsuario, conteudo, confere_imagem) => {
+const adicionarPost = async (idUsuario, titulo, conteudo, confere_imagem) => {
     const query = 'INSERT INTO post(idUsuario, titulo, conteudo, confere_imagem) VALUES ($1, $2, $3, $4) RETURNING *';
     const valores = [idUsuario, titulo, conteudo, confere_imagem];
     try {

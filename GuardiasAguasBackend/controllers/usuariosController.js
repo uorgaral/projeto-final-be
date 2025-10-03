@@ -104,15 +104,6 @@ const selecionarTodosPost = async (req, res) => {
     }
 };
 
-const deletarTodosPost = async (req, res) => {
-    try{
-        const post = await usuarioModel.selecionarTodosPost();
-        res.json(post);
-    }catch (error){
-        res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
-    }
-};
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -126,17 +117,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const adicionarPost = async (req, res) => {
-  const { idUsuario, conteudo } = req.body;
+  const { idUsuario, titulo, conteudo } = req.body;
   const files = req.files;
   const confere_imagem = files && files.length > 0;
 
   try {
     const postQuery = `
-      INSERT INTO post (idUsuario, conteudo, confere_imagem)
-      VALUES ($1, $2, $3)
+      INSERT INTO post (idUsuario, titulo, conteudo, confere_imagem)
+      VALUES ($1, $2, $3, $4)
       RETURNING idPost;
     `;
-    const postResult = await pool.query(postQuery, [idUsuario, conteudo, confere_imagem]);
+    const postResult = await pool.query(postQuery, [idUsuario, titulo, conteudo, confere_imagem]);
     const idPost = postResult.rows[0].idpost;
 
     if (confere_imagem) {

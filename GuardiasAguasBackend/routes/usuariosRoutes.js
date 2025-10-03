@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/images/' });
 
 router.post('/registrar', usuariosController.registrarUsuario);
 router.post('/login', usuariosController.loginUsuario);
