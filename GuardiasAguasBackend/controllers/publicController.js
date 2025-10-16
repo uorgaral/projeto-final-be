@@ -1,4 +1,5 @@
 const publicModel = require('../models/publicModel');
+const usuarioModel = require('../models/usuariosModel');
 
 
 // Informações abertas ao público
@@ -20,7 +21,28 @@ const selecionarTodosPost = async (req, res) => {
 };
 
 
+const loginUsuario = async (req, res) => {
+const { email, senha } = req.body;
+try {
+const usuario = await usuarioModel.buscarUsuarioPorEmail(email);
+if (!usuario) {
+return res.status(401).json({ erro: 'Usuário não encontrado' });
+}
+const senhaValida = await usuarioModel.compararSenhas(senha, usuario.senha);
+if (!senhaValida) {
+return res.status(401).json({ erro: 'Senha inválida' });
+}
+res.json({ mensagem: 'Login realizado com sucesso', usuario: { id: usuario.id,
+nome: usuario.nome, email: usuario.email } });
+} catch (error) {
+res.status(500).json({ erro: 'Erro no login', detalhe: error.message });
+}
+};
+
+
+
 module.exports = {
     selecionarTodosImagem,
-    selecionarTodosPost
+    selecionarTodosPost,
+    loginUsuario
 };

@@ -20,7 +20,7 @@ FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE
 create table post(
 idPost serial primary key,
 idUsuario int,
-titulio, varchar(100),
+titulo varchar(100),
 dataPublic TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, -- Esta é a linha principal,
 conteudo text,
 confere_imagem BOOLEAN DEFAULT FALSE,
@@ -35,7 +35,7 @@ FOREIGN KEY (idPost) REFERENCES post(idPost) ON DELETE CASCADE
 );
 
 
-drop table imagem 
+drop table post 
 
 
 
