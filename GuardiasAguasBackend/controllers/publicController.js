@@ -12,12 +12,13 @@ const selecionarTodosImagem = async (req, res) => {
         res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
     }
 };
+
 const selecionarTodosPost = async (req, res) => {
     try{
-        const post = await publicModel.selecionarTodosPost();
+        const post = await publicModel.selecionarTodosPost(); 
         res.json(post);
     }catch (error){
-        res.status(500).json({erro: 'Erro ao buscar imagens.', detalhe: error.message})
+        res.status(500).json({erro: 'Erro ao buscar publicações.', detalhe: error.message}) // Corrigi a mensagem de erro para 'publicações'
     }
 };
 

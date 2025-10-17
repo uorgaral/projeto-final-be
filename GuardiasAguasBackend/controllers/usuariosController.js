@@ -77,10 +77,10 @@ const adicionarPost = async (req, res) => {
       for (const file of files) {
         const imageUrl = `/uploads/images/${file.filename}`;
         const imageQuery = `
-          INSERT INTO imagem (idPost, caminho_imagem)
-          VALUES ($1, $2);
+          INSERT INTO imagem (idPost, titulo, caminho_imagem)
+          VALUES ($1, $2, $3);
         `;
-        await pool.query(imageQuery, [idPost, imageUrl]);
+        await pool.query(imageQuery, [idPost, titulo, imageUrl]);
       }
     }
 
