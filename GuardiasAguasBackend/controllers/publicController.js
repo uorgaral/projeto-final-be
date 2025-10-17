@@ -1,5 +1,6 @@
 const publicModel = require('../models/publicModel');
 const usuarioModel = require('../models/usuariosModel');
+const { get } = require('../routes/usuariosRoutes');
 
 
 // Informações abertas ao público
@@ -39,10 +40,22 @@ res.status(500).json({ erro: 'Erro no login', detalhe: error.message });
 }
 };
 
-
+const getPostPorId = async (req, res) => {
+    const { idPost } = req.params;
+    try {
+        const post = await publicModel.getPostPorId(idPost);
+        if (!post) {
+            return res.status(404).json({ erro: 'Publicação não encontrada' });
+        }
+        res.json(post);
+    } catch (error) {
+        res.status(500).json({ erro: 'Erro ao buscar publicação', detalhe: error.message });
+    }
+};
 
 module.exports = {
     selecionarTodosImagem,
     selecionarTodosPost,
-    loginUsuario
+    loginUsuario,
+    getPostPorId
 };
