@@ -2,11 +2,39 @@ const conexao = require('../conexao');
 const bcrypt = require('bcrypt');
 
 
+// publicModel.js
+
 const selecionarTodosPost = async () => {
-    const query = 'SELECT * FROM post';
-    const { rows } = await conexao.query(query);
-    return rows;
+    const query = `
+        SELECT
+            p.idpost,
+            p.idusuario,
+            p.titulo,
+            p.datapublic,
+            p.conteudo,
+            p.confere_imagem,
+            (
+                -- Subconsulta para pegar o caminho da primeira imagem (ordenada por idimagem)
+                SELECT i.caminho_imagem
+                FROM imagem i
+                WHERE i.idpost = p.idpost
+                ORDER BY i.idimagem 
+                LIMIT 1
+            ) AS caminho_imagem
+        FROM post p
+        ORDER BY p.datapublic DESC; 
+    `;
+    
+    try {
+        const { rows } = await conexao.query(query);
+        return rows;
+    } catch (error) {
+        console.error("Erro ao selecionar todos os posts com imagem:", error);
+        throw error;
+    }
 };
+
+// ... o restante do seu arquivo publicModel.js
 
 const selecionarTodosImagem = async () => {
     const query = 'SELECT * FROM imagem';

@@ -19,10 +19,11 @@ FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE
 create table imagem (
 idImagem serial primary key,
 idPost int NOT NULL,
+titulo varchar(100),
 caminho_imagem text NOT NULL,
 FOREIGN KEY (idPost) REFERENCES post(idPost) ON DELETE CASCADE
 );
 
 
-
+drop table imagem
 
