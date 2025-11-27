@@ -34,7 +34,6 @@ const selecionarTodosPost = async () => {
     }
 };
 
-// ... o restante do seu arquivo publicModel.js
 
 const selecionarTodosImagem = async () => {
     const query = 'SELECT * FROM imagem';
@@ -50,7 +49,7 @@ const getPostPorId = async (idPost) => {
     try{
         const resultPost = await conexao.query(queryPost, [idPost]);
         if (resultPost.rows.length === 0) {
-            return null; // Post not found
+            return null;
         }
         const post = resultPost.rows[0];
 

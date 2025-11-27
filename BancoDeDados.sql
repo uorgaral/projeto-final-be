@@ -25,5 +25,4 @@ FOREIGN KEY (idPost) REFERENCES post(idPost) ON DELETE CASCADE
 );
 
 
-drop table imagem
 

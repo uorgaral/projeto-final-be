@@ -72,6 +72,7 @@ const adicionarPost = async (req, res) => {
     `;
     const postResult = await pool.query(postQuery, [idUsuario, titulo, conteudo, confere_imagem]);
     const idPost = postResult.rows[0].idpost;
+    
 
     if (confere_imagem) {
       for (const file of files) {

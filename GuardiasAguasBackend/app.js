@@ -9,9 +9,9 @@ const path = require('path');
 
 const corsOptions = {
     origin: 'http://localhost:3001', 
-    credentials: true, // Se você precisar enviar cookies ou cabeçalhos de autorização
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
-    allowedHeaders: 'Content-Type,Authorization' // Cabeçalhos permitidos
+    credentials: true, 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+    allowedHeaders: 'Content-Type,Authorization' 
 };
 
 

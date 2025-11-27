@@ -24,15 +24,15 @@ const selecionarTodosUsuarios = async () => {
 }
 
 const buscarUsuarioPorId = async (idUsuario) => {
-const query = 'SELECT idUsuario, nome, email, senha  FROM usuarios WHERE idUsuario = $1';
-const { rows } = await conexao.query(query, [idUsuario]);
+const query = 'SELECT idusuario, nome, email, senha  FROM usuarios WHERE idusuario = $1';
+const { rows } = await conexao.query(query, [idusuario]);
 return rows[0];
 };
 
 const buscarUsuarioPorEmail = async (email) => {
-const query = 'SELECT * FROM usuarios WHERE email = $1';
-const { rows } = await conexao.query(query, [email]);
-return rows[0];
+    const query = 'SELECT idusuario AS "idUsuario", nome, email, senha FROM usuarios WHERE email = $1';
+    const { rows } = await conexao.query(query, [email]);
+    return rows[0];
 };
 
 const adicionarPost = async (idUsuario, titulo, conteudo, confere_imagem) => {

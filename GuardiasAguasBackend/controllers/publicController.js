@@ -3,7 +3,7 @@ const usuarioModel = require('../models/usuariosModel');
 const { get } = require('../routes/usuariosRoutes');
 
 
-// Informações abertas ao público
+
 const selecionarTodosImagem = async (req, res) => {
     try{
         const imagens = await publicModel.selecionarTodosImagem();
@@ -22,25 +22,6 @@ const selecionarTodosPost = async (req, res) => {
     }
 };
 
-
-const loginUsuario = async (req, res) => {
-const { email, senha } = req.body;
-try {
-const usuario = await usuarioModel.buscarUsuarioPorEmail(email);
-if (!usuario) {
-return res.status(401).json({ message: 'Usuário não encontrado' });
-}
-const senhaValida = await usuarioModel.compararSenhas(senha, usuario.senha);
-if (!senhaValida) {
-return res.status(401).json({ message: 'Senha inválida' });
-}
-res.json({ mensagem: 'Login realizado com sucesso', usuario: { id: usuario.id,
-nome: usuario.nome, email: usuario.email } });
-} catch (error) {
-res.status(500).json({ message: 'Erro no login', detalhe: error.message });
-}
-};
-
 const getPostPorId = async (req, res) => {
     const { idPost } = req.params;
     try {
@@ -53,6 +34,36 @@ const getPostPorId = async (req, res) => {
         res.status(500).json({ erro: 'Erro ao buscar publicação', detalhe: error.message });
     }
 };
+
+// publicController.js
+
+const loginUsuario = async (req, res) => {
+const { email, senha } = req.body;
+try {
+const usuario = await usuarioModel.buscarUsuarioPorEmail(email);
+if (!usuario) {
+return res.status(401).json({ message: 'Usuário não encontrado' });
+}
+const senhaValida = await usuarioModel.compararSenhas(senha, usuario.senha);
+if (!senhaValida) {
+return res.status(401).json({ message: 'Senha inválida' });
+}
+res.json({ 
+    mensagem: 'Login realizado com sucesso', 
+    usuario: { 
+        idUsuario: usuario.idUsuario, 
+        nome: usuario.nome, 
+        email: usuario.email 
+    } 
+});
+
+} catch (error) {
+res.status(500).json({ message: 'Erro no login', detalhe: error.message });
+}
+};
+// ...
+
+
 
 module.exports = {
     selecionarTodosImagem,
