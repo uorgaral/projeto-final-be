@@ -18,7 +18,9 @@ const corsOptions = {
 
 // Middlewares
 app.use(cors(corsOptions)); // Habilita CORS
-app.use(express.json()); // Permite receber JSON no body das requisições
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // Rotas
 app.use('/usuarios', usuariosRoutes);
@@ -33,3 +35,4 @@ const port = 3000;
 app.listen(port, () => {
 console.log(`Servidor executando em: http://localhost:${port}`);
 });
+

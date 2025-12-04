@@ -38,30 +38,35 @@ const getPostPorId = async (req, res) => {
 // publicController.js
 
 const loginUsuario = async (req, res) => {
-const { email, senha } = req.body;
-try {
-const usuario = await usuarioModel.buscarUsuarioPorEmail(email);
-if (!usuario) {
-return res.status(401).json({ message: 'Usuário não encontrado' });
-}
-const senhaValida = await usuarioModel.compararSenhas(senha, usuario.senha);
-if (!senhaValida) {
-return res.status(401).json({ message: 'Senha inválida' });
-}
-res.json({ 
-    mensagem: 'Login realizado com sucesso', 
-    usuario: { 
-        idUsuario: usuario.idUsuario, 
-        nome: usuario.nome, 
-        email: usuario.email 
-    } 
-});
+    const { email, senha } = req.body;
+    try {
+        const usuario = await usuarioModel.buscarUsuarioPorEmail(email); // Ponto 1
+        
+        if (!usuario) {
+            return res.status(401).json({ message: 'Usuário não encontrado' });
+        }
+        
+        const senhaValida = await usuarioModel.compararSenhas(senha, usuario.senha); // Ponto 2
+        
+        if (!senhaValida) {
+            return res.status(401).json({ message: 'Senha inválida' });
+        }
+        
+        // Sucesso (Se chegar aqui)
+        res.json({ 
+            mensagem: 'Login realizado com sucesso', 
+            usuario: { 
+                idUsuario: usuario.idUsuario, 
+                nome: usuario.nome, 
+                email: usuario.email 
+            } 
+        });
 
-} catch (error) {
-res.status(500).json({ message: 'Erro no login', detalhe: error.message });
-}
+    } catch (error) {
+        // Ponto 3: Qualquer erro de banco de dados ou execução do código
+        res.status(500).json({ message: 'Erro no login', detalhe: error.message });
+    }
 };
-// ...
 
 
 
